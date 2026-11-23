@@ -1,0 +1,18 @@
+{
+  "Q1": {
+    "postgres_ms": 204.483,
+    "mongodb_ms": 21.924
+  },
+  "Q2": {
+    "postgres_ms": 159.451,
+    "mongodb_ms": 50.6
+  },
+  "Q3": {
+    "postgres_ms": 169.898,
+    "mongodb_ms": 160.04
+  },
+  "Q4": {
+    "postgres_ms": 247.618,
+    "mongodb_ms": 0.843
+  }
+}
