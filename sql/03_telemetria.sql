@@ -50,8 +50,18 @@ ORDER BY rn;
 -- Sin RLS; se cierra el acceso por defecto de Supabase
 REVOKE ALL ON dispositivos, telemetria_pg FROM PUBLIC, anon, authenticated;
 
--- Lectura para roles internos
-GRANT SELECT ON dispositivos, telemetria_pg TO rol_medico, rol_auditor;
+-- Otorga permisos solo a los roles que existan en este proyecto
+DO $$
+DECLARE r text;
+BEGIN
+  FOREACH r IN ARRAY ARRAY['rol_medico', 'rol_auditor'] LOOP
+    IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = r) THEN
+      EXECUTE format('GRANT SELECT ON dispositivos, telemetria_pg TO %I', r);
+    ELSE
+      RAISE NOTICE 'Rol % no existe, se omite el GRANT', r;
+    END IF;
+  END LOOP;
+END $$;
 
 -- Verificación: debe devolver 200
 SELECT count(*) AS total_dispositivos FROM dispositivos;

@@ -1,6 +1,4 @@
-# Credenciales locales (nunca se versionan)
 .env
-# Caché de Python
+.venv/
 __pycache__/
 *.pyc
-# resultados/*.png SÍ se versiona (no se ignora)
